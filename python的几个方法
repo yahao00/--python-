@@ -1,0 +1,43 @@
+寒假学习了Python的基本语法，整理出了几个重要方法，如下:
+upper方法:调用方法是 A string.upper( )     ’A string'对象调用方法upper来创建一个新的字符串，调用的对象本身转换为大写的形式。
+>>>mystring='python rules'
+>>>mystring.upper()
+'PYTHON RULES'
+lower方法：和upper作用相反
+find方法：返回子串在原字符中的第一次出现的索引位置(如果出现多次），如果没有找到该子串，则返回-1.
+    方法链：可以链接方法和函数，使用一系列的“点标记”来实现链接，如'A String'.upper().find('S')
+>>>mystring='python rules'
+>>>mystring.upper()
+'PYTHON RULES'
+>>>mystring.upper().find('O')  
+可选参数：默认情况下，find从索引为0处开始，但如果提供了第二个参数，就从该参数指定的位置开始查找过程。
+>>>astring='he had the bat'
+>>>astring.find('t')
+7
+>>>astring.find('t',8)
+13
+#如果提供第三个参数，find将在该索引所指的位置停下来
+>>>astring.find('t',1,6)
+false
+split方法：split方法创建主调字符串的子串，字符串被指定的字符分割。在空格处的分割调用方法是.split(' ")。在每个逗号处分割的方法调用是.split(', ')。
+>>>name='john marwood cleese'
+>>>first,middle,last=name.split()
+>>>transformed=last+', '+first+' '+middle
+>>>print transformed
+cleese, john marwood
+    split方法可以用于用逗号分隔的数据，例如电子表格和数据库产生的数据。此外，该方法不仅可以用手变量，还可以用于字符串常量。最后，如果未指定分隔符，分隔符默认为空白，即空格、制表符或回车符。
+>>>line='bob,carol,ted,alice'
+>>>first,second,third,fourth=line.split(',')
+>>>print fisrt,second,third,fourth
+bob carol ted alice
+>>>op1,op2="A+B".split('+')
+>>>print op1,op2
+A B
+replace方法：需要两个参数，第一个参数是正在查找的字符串，第二个参数是如果找到第一个字符串时要替换成的字符串。例如
+>>>'abbc'.replace('b','z')
+'azzc'
+strip方法：消除回车符，和一些不可见字符。如果strip方法没有给出参数，则将从字符串的两端移除空白。如果提供了字符串参数，则只有那些在参数中的字符将被删除。例如 astring.strip('., ')，它消除字符串中的逗号、句号，以及开头和结尾处的空格字符。如', this. '.strip('., ')和'this,,.',.strip('., ')都将得到string对象'this'。
+    strip方法只适用于字符串的开头和结尾。例如， 'this string'.strip()将得到字符串'this string'。因为没有提供参数，所以默认情况是消除空白（制表符，回车，空格等），但字符串中间的空白不会收到影响。
+    注意：所有开头和结尾处的空白字符都将被删除。
+
+
