@@ -1,0 +1,51 @@
+#! /usr/local/sbin/python
+# -*- coding=utf-8 -*-
+
+import functools
+import hashlib
+import json
+import random
+import sys
+import urllib.parse
+import urllib.request
+
+appid = 'input your id'
+secretKey = 'input your key'
+
+reqURL = 'https://fanyi-api.baidu.com/api/trans/vip/translate'
+q = functools.reduce(lambda x, y: str(x)+' '+str(y), sys.argv[1:])       
+salt = random.randint(32768, 65535)
+sign = appid + q + str(salt) + secretKey
+
+md5Obj = hashlib.md5()
+md5Obj.update(sign.encode('utf-8'))
+sign = md5Obj.hexdigest()
+
+headers = {
+    'Accept': 'application/json',
+    'Accept-Encoding': 'gzip, deflate, br',
+    'Accept-Language': 'zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7',
+    'Connection': 'close',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.87 Safari/537.36'
+}
+
+post_data = {
+    'q': q,
+    'from': 'auto',
+    'to': 'zh',
+    'appid': appid,
+    'salt': salt,
+    'sign': sign
+}
+
+post_data_bin = urllib.parse.urlencode(post_data).encode('utf-8')
+
+try:
+    httpClient = urllib.request.Request(
+        url=reqURL, data=post_data_bin, headers=headers)
+    responseBin = urllib.request.urlopen(httpClient).read()
+    responseJsonStr = responseBin.decode('utf-8')
+    responseJson = eval(responseJsonStr)
+    print(responseJson['trans_result'][0]['dst'])
+except Exception as e:
+    print('Translate Error...')
